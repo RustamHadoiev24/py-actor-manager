@@ -8,7 +8,10 @@ class ActorManager:
         self.table_name = table_name
 
     def create(self, first_name: str, last_name: str) -> None:
-        query = f"INSERT INTO {self.table_name} (first_name, last_name) VALUES (?, ?)"
+        query = (
+            f"INSERT INTO {self.table_name} (first_name, last_name) "
+            "VALUES (?, ?)"
+        )
         self.connection.execute(query, (first_name, last_name))
         self.connection.commit()
 
@@ -18,7 +21,10 @@ class ActorManager:
         return [Actor(*row) for row in cursor.fetchall()]
 
     def update(self, pk: int, new_first_name: str, new_last_name: str) -> None:
-        query = f"UPDATE {self.table_name} SET first_name = ?, last_name = ? WHERE id = ?"
+        query = (
+            f"UPDATE {self.table_name} "
+            "SET first_name = ?, last_name = ? WHERE id = ?"
+        )
         self.connection.execute(query, (new_first_name, new_last_name, pk))
         self.connection.commit()
 
